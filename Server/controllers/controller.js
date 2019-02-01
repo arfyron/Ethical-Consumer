@@ -6,7 +6,7 @@ module.exports = {
     let {ticker} = req.params;
     axios.get(`https://api.intrinio.com/executives?company=${ticker}&type=us&api_key=${APIKEYS.intrinoAPI}`)
     .then(({data}) => {
-      res.send(data)
+      res.send(data.data) //Axios returns an object with a data property and the API itself contains a data array in that axios data property.
     })
   },
 
