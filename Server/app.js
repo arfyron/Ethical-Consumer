@@ -5,6 +5,8 @@ const compression = require('compression');
 
 const routes = require('./routes/routes.js')
 
+const redis = require('./dbconfig.js')
+
 const app = express()
 
 app.use(morgan('dev'))
