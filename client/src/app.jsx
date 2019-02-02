@@ -2,6 +2,8 @@ import React from "react";
 import ReactDom from "react-dom";
 import axios from "axios";
 
+import DonationTable from './components/donationTable.jsx'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -9,10 +11,12 @@ class App extends React.Component {
       currentCompany: "",
       formData: "",
       donationData: [],
-      companyExecs: []
+      companyExecs: [],
+      currentExec: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleTickerSearch = this.handleTickerSearch.bind(this);
+    this.handleDonationSearch = this.handleDonationSearch.bind(this)
   }
 
   handleTickerSearch(e) {
@@ -40,12 +44,14 @@ class App extends React.Component {
 
   handleDonationSearch(e) {
     e.preventDefault();
-    let name = e.target.innerHTML.split(' ').slice(1).join('%20')
-    axios.get(`/donations/${name}`)
+    let name = e.target.innerHTML
+    let axiosName = name.split(' ').slice(1).join('%20')
+    axios.get(`/donations/${axiosName}`)
     .then(({data}) => {
       console.log(data);
       this.setState({
-        donationData : data
+        donationData : data,
+        currentExec : name
       })
     })
     .catch(err => {
@@ -84,6 +90,9 @@ class App extends React.Component {
         {this.state.companyExecs.map((exec, i) => {
           return <button id='test' onClick={this.handleDonationSearch} key={i}>{exec}</button>;
         })}
+        <br />
+        <br />
+        <DonationTable exec={this.state.currentExec} data={this.state.donationData}/>
       </React.Fragment>
     );
   }
