@@ -11,7 +11,7 @@ app.use(morgan('dev'))
 app.use(express.json());
 app.use(compression())
 
-app.use(express.static(path.join(__dirname, "/../public")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.use('/', routes);
 
