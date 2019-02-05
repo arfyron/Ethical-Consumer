@@ -14,7 +14,8 @@ const DonationTable = (props) => {
             <th>Type of Contribution</th>
             <th>Committee Name</th>
             <th>Amount</th>
-            <th>Address</th>
+            <th>City/State</th>
+            <th>Company</th>
             <th>Occupation</th>
             <th>Donation Record PDF</th>
           </tr>
@@ -25,8 +26,9 @@ const DonationTable = (props) => {
                 <td>{record.report_year}</td>
                 <td>{record.line_number_label}</td>
                 <td>{record.committee.name}</td>
-                <td>{record.contribution_receipt_amount.toFixed(2).padEnd(4, '0')}</td>
+                <td>${record.contribution_receipt_amount.toFixed(2).padEnd(4, '0')}</td>
                 <td>{record.contributor_city}, {record.contributor_state}</td>
+                <td>{record.contributor_employer || 'Not Listed'}</td>
                 <td>{record.contributor_occupation}</td>
                 <td><a href={record.pdf_url} target='_blank'>Click Me</a></td>
               </tr>

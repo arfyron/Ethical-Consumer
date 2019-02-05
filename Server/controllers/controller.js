@@ -54,9 +54,23 @@ module.exports = {
             promiseResults.map((individualCall) => {
               dataArr = dataArr.concat(individualCall.data.results)
             })
+            dataArr.sort((a,b) => {
+              if (a.report_year < b.report_year) {
+                return 1;
+              } else if (a.report_year > b.report_year) {
+                return -1;
+              }
+              return 0;
+            })
             res.send(dataArr)
+            redisClient.set(name, JSON.stringify(dataArr), 'EX', 60 * 60 * 6, (err, response) => {
+              if (err) console.log(err)
+            })
           })
-
+          .catch(err => {
+            console.log(err)
+          })
+        
 
       }
     })
